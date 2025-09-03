@@ -1,4 +1,10 @@
 {
+    "compilerOptions": {
+      "jsx": "react"
+    },
+    "compilerOptions": {
+      "jsx": "react"
+    },
     "compileerOptions": {
       "target": "ES2020",
       "useDefineForClassFields": true,

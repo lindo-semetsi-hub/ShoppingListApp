@@ -1,10 +1,10 @@
-import React from 'react;
-import { Routes, Route, navigate, Link} from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Navigate, Link} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
-import { userSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from './store';
 import { JSX } from 'react';
 

@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react;
+import { Routes, Route, navigate, Link} from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
+import { userSelector } from 'react-redux';
+import { RootState } from './store';
+import { JSX } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function ProtectedRoute ({children }: { children: JSX.Element }) {
+  const user = useSelector((s: RootState) => s.auth.user);
+  if (!user) return <Navigate to="/login" replace />;
+  return children;
+}
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="min-h-screen bg-slate-50">
+      <header className="bg-white shadow-sm">
+        <div className="container mx-auton px-4 py-3 flex justify-between items-center">
+    <Link to="/" className="font-semibold text-lg">ShoppingList</Link>
+    <nav className="space-x-4">
+      <Link to="/" className="hover:underline">Home</Link>
+      <Link to="/profile" className="hover:underline">Profile</Link>
+    </nav>
+    </div>
+      </header>
+
+      <main classname="container mx-auto px-4 py-6">
+        <Routes>
+          <Route path="/login" element={<AuthRoute><LoginPage /></AuthRoute>} />
+          <Route path="/login" element={<AuthRoute><LoginPage /></AuthRoute>} />
+        </Routes>
+      </main>
   )
 }
 
-export default App
+}

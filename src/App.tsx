@@ -29,10 +29,13 @@ export default function App() {
       <main classname="container mx-auto px-4 py-6">
         <Routes>
           <Route path="/login" element={<AuthRoute><LoginPage /></AuthRoute>} />
-          <Route path="/login" element={<AuthRoute><LoginPage /></AuthRoute>} />
+          <Route path="/register" element={<AuthRoute><RegisterPage /></AuthRoute>} />
+          <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-  )
+      </div>
+  );
 }
 
-}

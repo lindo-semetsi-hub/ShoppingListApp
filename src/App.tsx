@@ -13,6 +13,13 @@ function ProtectedRoute ({children }: { children: JSX.Element }) {
   if (!user) return <Navigate to="/login" replace />;
   return children;
 }
+
+function AuthRoute ({ children }: {children : JSX.Element }) {
+const user = useSelector (( s: RootState) => s.auth.user);
+if (user) return <Navigate to="/" replace />;
+return children;
+}
+
 export default function App() {
   return (
     <div className="min-h-screen bg-slate-50">
@@ -26,7 +33,7 @@ export default function App() {
     </div>
       </header>
 
-      <main classname="container mx-auto px-4 py-6">
+      <main className="container mx-auto px-4 py-6">
         <Routes>
           <Route path="/login" element={<AuthRoute><LoginPage /></AuthRoute>} />
           <Route path="/register" element={<AuthRoute><RegisterPage /></AuthRoute>} />

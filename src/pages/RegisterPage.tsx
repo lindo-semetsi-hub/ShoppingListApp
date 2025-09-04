@@ -58,7 +58,7 @@ function validate() {
             </form>
 
             <div className="mt-4 text-sm text-slate-500">
-                <p>Already have an account? <Link to="/login" className="text-indigo-600 hover:underline">Sign in</Link>.</p>
+                <p>Already have an account? <Link to="/login" className="text-indigo-600 hover:underline">Sign in</Link>. </p>
             </div>
         </div>
     );

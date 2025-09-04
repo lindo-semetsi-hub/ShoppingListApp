@@ -1,59 +1,42 @@
-import { createSlice, PayloadAction } from'@reduxjs/toolkit;
-import { useActionState } from 'react';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export type Item = {
+
+interface ShoppingItem {
     id: number;
     name: string;
     quantity: number;
+    notes?: string;
     category?: string;
     image?: string | null;
-    addedAt: string;
+    dateAdded: string;
 };
 
-export type ShoppingList = {
-    id: number;
-    userId: NumberConstructor;
-    name: string;
-    notes?: string;
-    category: string;
-    createdAt: string;
-    itens: string | null;
+
+interface ListsState {
+    items: [],
+}
+
+const initialState: ListsState = {
+    items: [],
 };
 
-type ListsSlice = {
-    lists: ShoppingList[];
-    loading: boolean;
-    error?: string | null;
-};
-
-const listsSlice = createSlice ({
-    name: 'lists',
-    initialState, 
+const listsSlice = createSlice({
+    name: "lists",
+    initialState,
     reducers: {
-        setLoading(state, action: PayloadAction<boolean>) {
-            state.loading = action.payload;
+        addItem: (state, action: PayloadAction<ShoppingItem>) => {
+            state.items.push(action.payload);
         },
-        setLists(state, action: PayloadAction<ShoppingList>) {
-            state.lists = action.payload;
-            state.loading = false;
-            state.error = null;
+        updateItem: (state, action: PayloadAction<ShoppingItem>) => {
+            const index = state.items.findIndex(i => i.id === action.payload.id);
+            if (index >= 0) state.items[index] = action.payload;
         },
-        addList(state, action: PayloadAction<ShoppingList>) {
-            state.lists.push(action.payload);
+        deleteItem: (state, action: PayloadAction<number>) => {
+            state.items = state.items.filter(i => i.id !== action.payload);
         },
-        updateList(state, action: PayloadAction<ShoppingList>) {
-            state.lists = state.lists.map(l => (l.id === useActionState.payload.id ? useActionState.payload : l));
-        },
-        deleteList(state, action: PayloadAction<number>) {
-            state.lists = state.lists.filter(l => l.id !== action.payload);
-        },
-        setError(state, action: PayloadAction<number>) {
-            state.error = action.payload;
-            state.loading = false;
-        },
-
-    }
+    },
 });
 
-export const { setLoading, setLists, addList, updateList, deleteLists, setError } = listsSlice.actions;
+
+export const { addItem, updateItem, deleteItem } = listsSlice.actions;
 export default listsSlice.reducer; 
